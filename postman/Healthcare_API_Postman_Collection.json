@@ -1,0 +1,121 @@
+{
+  "info": {
+    "_postman_id": "3a9f39f7-9313-46c9-9dac-cc054024a1b2",
+    "name": "Healthcare API Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "60005974"
+  },
+  "item": [
+    {
+      "name": "GET /api/doctors",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 200', () => {\r\n  pm.response.to.have.status(200)\r\n})\r\n\r\npm.test('Response is an array', () => {\r\n  pm.expect(pm.response.json()).to.be.an('array')\r\n})"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/doctors",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "doctors"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/doctors",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 201', () => {\r\n  pm.response.to.have.status(201)\r\n})\r\n\r\npm.test('Response has an id', () => {\r\n  pm.expect(pm.response.json()).to.have.property('id')\r\n})"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Dr. Emma Brown\",\r\n  \"specialty\": \"Neurology\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/doctors",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "doctors"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /api/doctors (missing field)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 400', () => {\r\n  pm.response.to.have.status(400)\r\n})\r\n\r\npm.test('Response has an error message', () => {\r\n  pm.expect(pm.response.json()).to.have.property('error')\r\n})"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Dr. No Specialty\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/doctors",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "doctors"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
